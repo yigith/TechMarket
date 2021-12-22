@@ -1,8 +1,16 @@
-﻿@{
+﻿@using ApplicationCore.Entities
+@model List<Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Products</h1>
+
+@foreach (var item in Model)
+{
+    <p>
+        <img src="~/uploads/products/@item.PictureUri" height="50" /> 
+        @item.Name 
+        $@item.Price.ToString("n2")
+    </p>
+}
