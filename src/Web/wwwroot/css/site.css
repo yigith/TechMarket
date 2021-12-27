@@ -87,3 +87,10 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+.nav-basket-items-count {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    border-radius: 50%;
+}

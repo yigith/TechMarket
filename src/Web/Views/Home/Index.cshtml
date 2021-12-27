@@ -30,7 +30,7 @@
                     <div class="product-title" title="@item.Name">@item.Name</div>
                     <div class="d-flex justify-content-between align-items-baseline">
                         <span class="font-weight-light">@item.PriceText</span>
-                        <a href="#" class="btn btn-success">
+                        <a href="#" class="btn btn-success" data-add-to-basket="@item.Id">
                             <i class="fas fa-cart-plus"></i>
                         </a>
                     </div>
@@ -70,6 +70,21 @@
 
 @section Scripts {
     <script>
+        $("[data-add-to-basket]").click(function (event) {
+            event.preventDefault();
+            var productId = $(this).data("add-to-basket");
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AddItem", "Basket")",
+                data: { productId: productId },
+                success: function (data) {
+                    $(".nav-basket-items-count").text(data);
+                    toastr.success("The item has been added successfully.");
+                }
+            });
+        });
+
         $("form#frmFilters").change(function () {
             this.submit();
         });
