@@ -40,21 +40,33 @@
     }
 </div>
 
-<h3>Pagination Info</h3>
-TotalItems: @Model.PaginationInfo.TotalItems
-<br />
-CurrentPage: @Model.PaginationInfo.CurrentPage
-<br />
-ItemsPerPage: @Model.PaginationInfo.ItemsPerPage
-<br />
-ItemsOnPage: @Model.PaginationInfo.ItemsOnPage
-<br />
-TotalPages: @Model.PaginationInfo.TotalPages
-<br />
-HasPrevious: @Model.PaginationInfo.HasPrevious
-<br />
-HasNext: @Model.PaginationInfo.HasNext
-<br />
+<nav class="mt-2">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(!Model.PaginationInfo.HasPrevious ? "disabled" : "")">
+            @{ await PageLink(Model.PaginationInfo.CurrentPage - 1, "&laquo;"); }
+        </li>
+
+        @foreach (int i in Model.PaginationInfo.PageNumbers)
+        {
+            if (i == -1)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&hellip;</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item @(i == Model.PaginationInfo.CurrentPage ? "active" : "")">
+                    @{ await PageLink(i, i.ToString()); }
+                </li>
+            }
+        }
+
+        <li class="page-item @(!Model.PaginationInfo.HasNext ? "disabled" : "")">
+            @{ await PageLink(Model.PaginationInfo.CurrentPage + 1, "&raquo;"); }
+        </li>
+    </ul>
+</nav>
 
 @section Scripts {
     <script>
@@ -62,4 +74,11 @@ HasNext: @Model.PaginationInfo.HasNext
             this.submit();
         });
     </script>
-} 
+}
+
+@{
+    async Task PageLink(int pageNo, string text)
+    {
+        <a class="page-link" asp-route-page="@pageNo" asp-route-CategoryId="@Model.CategoryId" asp-route-BrandId="@Model.BrandId">@Html.Raw(text)</a>
+    }
+}
