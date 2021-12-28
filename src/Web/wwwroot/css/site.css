@@ -94,3 +94,11 @@ body {
     right: 3px;
     border-radius: 50%;
 }
+
+
+/* toastr.js
+-------------------------------------------------- */
+.toast-top-right {
+    top: 66px;
+    right: 12px;
+}

@@ -1,0 +1,12 @@
+﻿@model Basket
+
+@foreach (BasketItem item in Model.Items)
+{
+    <p>
+        @item.Product.Name x@(item.Quantity) @item.Product.Price 
+    </p>
+}
+
+<p>
+    Total Price: $@Model.Items.Sum(x => x.Quantity * x.Product.Price).ToString("n2")
+</p>

@@ -31,14 +31,7 @@
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a asp-controller="Basket" asp-action="Index" class="nav-link position-relative" title="My Basket">
-                                <i class="fas fa-shopping-cart text-dark fa-lg"></i>
-                                <span class="badge badge-success nav-basket-items-count">@Web.Controllers.BasketController.adet</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <partial name="_NavBasketPartial" />
                 </div>
             </div>
         </nav>
