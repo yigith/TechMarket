@@ -1,14 +1,17 @@
 ﻿using ApplicationCore.Entities;
 using System.Threading.Tasks;
+using Web.Models;
 
 namespace Web.Interfaces
 {
     public interface IBasketViewModelService
     {
-        Task<Basket> GetBasketAsync();
+        Task<BasketViewModel> GetBasketAsync();
 
-        Task<Basket> AddBasketItemAsync(int productId, int quantity = 1);
+        Task<BasketViewModel> AddBasketItemAsync(int productId, int quantity = 1);
 
         Task<int> BasketItemsCountAsync();
+
+        Task EmptyBasketAsync();
     }
 }
