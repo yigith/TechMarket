@@ -1,5 +1,4 @@
-﻿using ApplicationCore.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Web.Models;
 
 namespace Web.Interfaces
@@ -15,5 +14,7 @@ namespace Web.Interfaces
         Task EmptyBasketAsync();
 
         Task RemoveBasketItemAsync(int basketItemId);
+
+        Task UpdateBasketItemsAsync(int[] basketItemIds, int[] quantities);
     }
 }

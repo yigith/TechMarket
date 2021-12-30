@@ -20,6 +20,7 @@ namespace ApplicationCore.Services
             var spec = new BasketWithItemsSpecification(buyerId);
             var basket = await _basketRepository.FirstOrDefaultAsync(spec);
             if (basket == null || basket.Items.Count == 0) return;
+
             basket.Items.Clear();
             await _basketRepository.UpdateAsync(basket);
         }
@@ -29,10 +30,60 @@ namespace ApplicationCore.Services
             var spec = new BasketWithItemsSpecification(buyerId);
             var basket = await _basketRepository.FirstOrDefaultAsync(spec);
             if (basket == null || basket.Items.Count == 0) return;
+
             var basketItem = basket.Items.FirstOrDefault(x => x.Id == basketItemId);
             if (basketItem == null) return;
             basket.Items.Remove(basketItem);
             await _basketRepository.UpdateAsync(basket);
+        }
+
+        public async Task SetQuantitiesAsync(string buyerId, int[] basketItemIds, int[] quantities)
+        {
+            var spec = new BasketWithItemsSpecification(buyerId);
+            var basket = await _basketRepository.FirstOrDefaultAsync(spec);
+            if (basket == null || basket.Items.Count == 0) return;
+
+            for (int i = 0; i < basketItemIds.Length; i++)
+            {
+                basket.Items.FirstOrDefault(x => x.Id == basketItemIds[i]).Quantity = quantities[i];
+            }
+
+            await _basketRepository.UpdateAsync(basket);
+        }
+
+        public async Task TransferBasketAsync(string anonymousId, string userId)
+        {
+            // retrieve anonymouse and user baskets
+            var specAnonymous = new BasketWithItemsSpecification(anonymousId);
+            var basketAnonymous = await _basketRepository.FirstOrDefaultAsync(specAnonymous);
+            var specUser = new BasketWithItemsSpecification(userId);
+            var basketUser = await _basketRepository.FirstOrDefaultAsync(specUser);
+            if (basketAnonymous == null) return;
+
+            // create the user basket if not exists
+            if (basketUser == null)
+            {
+                basketUser = new Basket() { BuyerId = userId };
+                await _basketRepository.AddAsync(basketUser);
+            }
+
+            // transfer items from the anonymous basket to the user basket
+            foreach (var item in basketAnonymous.Items)
+            {
+                var existingItem = basketUser.Items.FirstOrDefault(x => x.ProductId == item.ProductId);
+                if (existingItem != null)
+                {
+                    existingItem.Quantity += item.Quantity;
+                }
+                else
+                {
+                    basketUser.Items.Add(new BasketItem() { ProductId = item.ProductId, Quantity = item.Quantity });
+                }
+            }
+            await _basketRepository.UpdateAsync(basketUser);
+
+            // delete the anonymous basket
+            await _basketRepository.DeleteAsync(basketAnonymous);
         }
     }
 }
