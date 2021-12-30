@@ -32,7 +32,15 @@ namespace Web.Controllers
         public async Task<IActionResult> EmptyBasket()
         {
             await _basketViewModelService.EmptyBasketAsync();
-            TempData["Message"] = "Your basket has been emptied succesfully.";
+            TempData["Message"] = "Your basket has been emptied successfully.";
+            return RedirectToAction("Index", "Basket");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveItem(int basketItemId)
+        {
+            await _basketViewModelService.RemoveBasketItemAsync(basketItemId);
+            TempData["Message"] = "The item has been removed from the basket successfully.";
             return RedirectToAction("Index", "Basket");
         }
     }

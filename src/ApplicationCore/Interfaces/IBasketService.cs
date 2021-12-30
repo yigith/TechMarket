@@ -9,5 +9,7 @@ namespace ApplicationCore.Interfaces
     public interface IBasketService
     {
         Task EmptyBasketAsync(string buyerId);
+
+        Task RemoveBasketItemAsync(string buyerId, int basketItemId);
     }
 }
