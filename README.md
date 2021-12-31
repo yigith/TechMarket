@@ -47,3 +47,4 @@ Update-Database -Context AppIdentityDbContext -s Web
 * https://gist.github.com/yigith/c6f999788b833dc3d22ac6332a053dd1
 * https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-5.0
 * https://getbootstrap.com/docs/4.3/examples/checkout/
+* https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-components?view=aspnetcore-5.0#walkthrough-creating-a-simple-view-component
