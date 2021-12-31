@@ -46,3 +46,4 @@ Update-Database -Context AppIdentityDbContext -s Web
 * https://getbootstrap.com/docs/4.6/components/pagination/#alignment
 * https://gist.github.com/yigith/c6f999788b833dc3d22ac6332a053dd1
 * https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-5.0
+* https://getbootstrap.com/docs/4.3/examples/checkout/
