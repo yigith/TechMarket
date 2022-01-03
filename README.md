@@ -24,6 +24,9 @@ Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 5.0.13
 /Web
 Install-Package Npgsql.EntityFrameworkCore.PostgreSQL -v 5.0.10
 Install-Package Microsoft.EntityFrameworkCore.Tools -v 5.0.13
+
+/UnitTests
+Install-Package Moq
 ```
 
 ### Migrations
