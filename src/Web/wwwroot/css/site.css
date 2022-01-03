@@ -118,3 +118,13 @@ body {
 .lh-condensed {
     line-height: 1.25;
 }
+
+/* Form Validation
+-------------------------------------------------- */
+.field-validation-error {
+    color: var(--danger);
+}
+
+.validation-summary-errors > ul {
+    margin-bottom: 0;
+}
